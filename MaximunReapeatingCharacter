@@ -1,0 +1,33 @@
+public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+		int t = s.nextInt();
+		for (int i = 0; i < t; i++) {
+			String str = s.next();
+			char[] chArr = str.toCharArray();
+			char ch = chArr[0];
+			int count = 0;
+			int maxCount = Integer.MIN_VALUE;
+			char maxChar = 0;
+			for (int j = 0; j < chArr.length; j++) {
+				if (ch == chArr[j]) {
+					count++;
+				} else {
+					if (count > maxCount) {
+						maxCount = count;
+						maxChar = ch;
+
+
+					}
+					ch = chArr[j];
+					count = 1;
+				}
+			}
+			// last sequence of chars check
+			if (count > maxCount) {
+				maxCount = count;
+				maxChar = ch;
+
+			}
+			System.out.println(maxChar);
+		}
+	}
