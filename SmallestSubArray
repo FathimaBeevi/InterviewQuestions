@@ -1,0 +1,36 @@
+
+/*Given an array of integers (A[])  and a number x, find the smallest subarray with sum greater than the given value.*/
+
+public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+		int t = s.nextInt();
+		for (int i = 0; i < t; i++) {
+			// read
+			int n = s.nextInt();
+			int sum = s.nextInt();
+			int[] arr = new int[n];
+			for (int j = 0; j < n; j++) {
+				arr[j] = s.nextInt();
+			}
+			// find subarray
+			int startIndex = 0;
+			int arrSum = arr[0];
+			int count = 1;
+			int minCount = Integer.MAX_VALUE;
+			for (int j = 1; j < n; j++) {
+				if (arrSum <= sum) {
+					arrSum += arr[j];
+					count++;
+				} else {
+					if (count < minCount) {
+						minCount = count;
+					}
+					arrSum -= arr[startIndex];
+					count--;
+					startIndex++;
+
+				}
+			}
+			System.out.println(minCount);
+		}
+	}
