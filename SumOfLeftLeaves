@@ -1,0 +1,43 @@
+public static void main(String[] args) {
+		// contruct binary tree
+		Node root = new Node(20);
+		root.left = new Node(9);
+		root.left.left = new Node(5);
+		root.left.right = new Node(12);
+		root.left.right.right = new Node(15);
+		root.right = new Node(49);
+		root.right.right = new Node(52);
+		root.right.left = new Node(23);
+		root.right.right.left = new Node(50);
+
+		int result = leafSum(root, null);
+		System.out.println(result);
+
+	}
+
+	public static int leafSum(Node head, Node Parent) {
+		if (head == null) {
+			return 0;
+		}
+		int sum = 0;
+		if (head.left == null && head.right == null && Parent.left == head) {
+			sum = head.data;
+		} else {
+			sum += leafSum(head.left, head);
+			sum += leafSum(head.right, head);
+		}
+		return sum;
+
+	}
+
+	static class Node {
+		int data;
+		Node left;
+		Node right;
+
+		Node(int i) {
+			this.data = i;
+			this.left = null;
+			this.right = null;
+		}
+	}
