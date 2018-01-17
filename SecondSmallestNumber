@@ -1,0 +1,24 @@
+public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+		int t = s.nextInt();
+		for (int i = 0; i < t; i++) {
+			int n = s.nextInt();
+			int[] arr = new int[n];
+			for (int j = 0; j < n; j++) {
+				arr[j] = s.nextInt();
+			}
+			// find second smallest int
+			int min = arr[0];
+			int prevMin = Integer.MAX_VALUE;
+			for (int j = 1; j < n; j++) {
+				if (arr[j] < min) {
+					prevMin = min;
+					min = arr[j];
+
+				} else if (arr[j] > min && arr[j] < prevMin) {
+					prevMin = arr[j];
+				}
+			}
+			System.out.println(prevMin);
+		}
+	}
