@@ -1,0 +1,52 @@
+/*Given a Binary Search Tree. The task is to calculate the sum of all leaf nodes. You are required to complete the function sumOfLeafNodes. 
+BST has the following property (duplicate nodes are possible) -
+The left subtree of a node contains only nodes with keys less than the node’s key.
+The right subtree of a node contains only nodes with keys greater than or equal to the node’s key.
+
+*/
+
+
+
+
+public static void main(String[] args) {
+		// contruct binary tree
+		Node root = new Node(1);
+		root.left = new Node(2);
+		root.left.left = new Node(4);
+		root.left.right = new Node(5);
+		root.right = new Node(3);
+		root.right.right = new Node(7);
+		root.right.left = new Node(6);
+		root.right.left.right = new Node(8);
+
+		int result = leafSum(root);
+		System.out.println(result);
+
+	}
+
+	public static int leafSum(Node head) {
+		if (head == null) {
+			return 0;
+		}
+		int sum = 0;
+		if (head.left == null && head.right == null) {
+			sum = head.data;
+		} else {
+			sum += leafSum(head.left);
+			sum += leafSum(head.right);
+		}
+		return sum;
+
+	}
+
+	static class Node {
+		int data;
+		Node left;
+		Node right;
+
+		Node(int i) {
+			this.data = i;
+			this.left = null;
+			this.right = null;
+		}
+	}
