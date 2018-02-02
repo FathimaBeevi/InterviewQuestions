@@ -1,0 +1,24 @@
+public static void zigzag(Node head) {
+		Stack<Node> lr = new Stack<Node>();
+		Stack<Node> rl = new Stack<Node>();
+		rl.push(head);
+		while (!lr.isEmpty() || !rl.isEmpty()) {
+			while (!rl.isEmpty()) {
+				Node temp = rl.pop();
+				System.out.println(temp.data);
+				if (temp.right != null) {
+				lr.push(temp.right);
+				}
+				if (temp.left != null)
+				lr.push(temp.left);
+			}
+			while (!lr.isEmpty()) {
+				Node temp = lr.pop();
+				System.out.println(temp.data);
+				if (temp.left != null)
+				rl.push(temp.left);
+				if (temp.right != null)
+				rl.push(temp.right);
+			}
+		}
+	}
