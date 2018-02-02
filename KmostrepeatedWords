@@ -1,0 +1,54 @@
+public static void main(String[] args) throws FileNotFoundException {
+		File f = new File("src/main/resources/read.txt");
+		Scanner sc = new Scanner(f);
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		while (sc.hasNextLine()) {
+			String str = sc.nextLine();
+			addMap(map, str);
+		}
+		map = sortByComparator(map);
+		int k = 5;
+		for (Map.Entry<String, Integer> entry : map.entrySet()) {
+			if (k > 0)
+			System.out.println(entry.getKey() + " = " + entry.getValue());
+			else
+				break;
+			k--;
+		}
+
+	}
+
+	private static Map<String, Integer> sortByComparator(Map<String, Integer> unsortMap) {
+
+		Set<Entry<String, Integer>> list = unsortMap.entrySet();
+		List<Entry<String, Integer>> listArr = new ArrayList<Entry<String, Integer>>(list);
+
+		// Sorting the list based on values
+		Collections.sort(listArr, new Comparator<Entry<String, Integer>>() {
+			public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2) {
+
+				return o2.getValue().compareTo(o1.getValue());
+
+			}
+		});
+
+		// Maintaining insertion order with the help of LinkedList
+		Map<String, Integer> sortedMap = new LinkedHashMap<String, Integer>();
+		for (Entry<String, Integer> entry : listArr) {
+			sortedMap.put(entry.getKey(), entry.getValue());
+		}
+
+		return sortedMap;
+	}
+
+	private static void addMap(Map<String, Integer> map, String str) {
+		String[] strArr = str.split(" ");
+		for (String s : strArr) {
+			if (map.containsKey(s)) {
+				map.put(s, map.get(s) + 1);
+			} else {
+				map.put(s, 1);
+			}
+		}
+
+	}
