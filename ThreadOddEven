@@ -1,0 +1,62 @@
+public static void main(String[] args) {
+		ExecutorService executor = Executors.newFixedThreadPool(2);
+		final oddEven pc = new oddEven();
+		Runnable even = new Runnable() {
+
+			public void run() {
+				try {
+					pc.printEven();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		};
+		Runnable odd = new Runnable() {
+
+			public void run() {
+				try {
+					pc.printOdd();
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		};
+		executor.execute(even);
+		executor.execute(odd);
+		executor.shutdown();
+
+	}
+
+	public static class oddEven {
+		boolean odd = false;
+		int count = 0;
+		int max = 20;
+
+		public void printOdd() throws InterruptedException {
+			while (count < max) {
+				synchronized (this) {
+					if (!odd) {
+						wait();
+					}
+					System.out.println(count++);
+					odd = false;
+					notify();
+				}
+			}
+		}
+
+		public void printEven() throws InterruptedException {
+			while (count < max) {
+				synchronized (this) {
+					if (odd) {
+						wait();
+					}
+					System.out.println(count++);
+					odd = true;
+					notify();
+				}
+			}
+		}
+	}
